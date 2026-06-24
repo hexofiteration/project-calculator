@@ -3,11 +3,11 @@ let rightOperand = "";
 let operator = "";
 const numbers = document.querySelector(".numbers");
 const numBtns = Array.from(numbers.querySelectorAll("button"));
-
+const display = document.querySelector("#display");
 
 numBtns.forEach(button => button.addEventListener("click", () => {
     leftOperand += button.textContent;
-    console.log(leftOperand);
+    display.textContent = leftOperand;
 }));
 
 function add(num1, num2){
