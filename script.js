@@ -5,11 +5,30 @@ const numbers = document.querySelector(".numbers");
 const numBtns = Array.from(numbers.querySelectorAll("button"));
 const display = document.querySelector("#display");
 
+const operators = document.querySelector(".operators");
+const operatorBtns = Array.from(operators.querySelectorAll("button"));
+let isOperatorPressed = false;
+
+
 numBtns.forEach(button => button.addEventListener("click", () => {
     leftOperand += button.textContent;
     display.textContent = leftOperand;
+    console.log(leftOperand);
 }));
 
+operatorBtns.forEach(button => button.addEventListener("click", () => {
+    operator = button.textContent;
+    isOperatorPressed = true;
+    console.log(isOperatorPressed);
+}));
+
+if(isOperatorPressed === true) {
+    numBtns.forEach(button => button.addEventListener("click", () => {
+        rightOperand += button.textContent;
+        display.textContent = rightOperand;
+        console.log(rightOperand);
+    }));
+}
 function add(num1, num2){
     return num1 + num2;
 }
