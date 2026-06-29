@@ -9,6 +9,8 @@ const operators = document.querySelector(".operators");
 const operatorBtns = Array.from(operators.querySelectorAll("button"));
 let isOperatorPressed = false;
 
+const equalSign = document.querySelector("#equal");
+
 operatorBtns.forEach(button => button.addEventListener("click", () => {
     operator = button.textContent;
     isOperatorPressed = true;
@@ -27,7 +29,13 @@ numBtns.forEach(element => {
 });
 });
 
+equalSign.addEventListener("click", () => {
+    display.textContent = operate(operator, leftOperand, rightOperand);
+});
 
+function add(num1, num2){
+    return num1 + num2;
+}
 function subtract(num1, num2){
     return num1 - num2;
 }
