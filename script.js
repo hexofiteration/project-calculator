@@ -11,22 +11,31 @@ let isOperatorPressed = false;
 
 const equalSign = document.querySelector("#equal");
 
-operatorBtns.forEach(button => button.addEventListener("click", () => {
-    operator = button.textContent;
-    isOperatorPressed = true;
+operatorBtns.forEach(button => button.addEventListener("click", (e) => {
+    if(isOperatorPressed && rightOperand !== ""){
+            let result = operate(operator, leftOperand, rightOperand);
+            display.textContent = result;
+            leftOperand = result;
+            rightOperand = "";
+            operator = e.target.textContent;
+        } else {
+            operator = e.target.textContent;
+            isOperatorPressed = true;
+        }
+
+    
 }));
 
 numBtns.forEach(element => {
     element.addEventListener("click", (e) => {
-    if (!isOperatorPressed) {
-        leftOperand += e.target.textContent;
-        display.textContent = leftOperand;
-    } else {
-        rightOperand += e.target.textContent;
-        display.textContent = rightOperand;
-    }
-    console.log(`${leftOperand} ${operator} ${rightOperand}`);
-});
+        if (!isOperatorPressed) {
+            leftOperand += e.target.textContent;
+            display.textContent = leftOperand;
+        } else {
+            rightOperand += e.target.textContent;
+            display.textContent = rightOperand;
+        }
+    });
 });
 
 equalSign.addEventListener("click", () => {
@@ -58,6 +67,8 @@ function operate(operator, num1, num2){
     num1 = Number(num1);
     num2 = Number(num2);
 
+    if (operator == "" || num1 == "" || num2 == "") return "";
+    
 	if (operator == "+" ) return add(num1, num2);
 
 	if (operator == "-" ) return subtract(num1, num2);
@@ -66,3 +77,5 @@ function operate(operator, num1, num2){
 
 	if (operator == "/" ) return divide(num1, num2);
 }
+
+
