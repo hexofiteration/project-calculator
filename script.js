@@ -9,29 +9,24 @@ const operators = document.querySelector(".operators");
 const operatorBtns = Array.from(operators.querySelectorAll("button"));
 let isOperatorPressed = false;
 
-
-numBtns.forEach(button => button.addEventListener("click", () => {
-    leftOperand += button.textContent;
-    display.textContent = leftOperand;
-    console.log(leftOperand);
-}));
-
 operatorBtns.forEach(button => button.addEventListener("click", () => {
     operator = button.textContent;
     isOperatorPressed = true;
-    console.log(isOperatorPressed);
 }));
 
-if(isOperatorPressed === true) {
-    numBtns.forEach(button => button.addEventListener("click", () => {
-        rightOperand += button.textContent;
+numBtns.forEach(element => {
+    element.addEventListener("click", (e) => {
+    if (!isOperatorPressed) {
+        leftOperand += e.target.textContent;
+        display.textContent = leftOperand;
+    } else {
+        rightOperand += e.target.textContent;
         display.textContent = rightOperand;
-        console.log(rightOperand);
-    }));
-}
-function add(num1, num2){
-    return num1 + num2;
-}
+    }
+    console.log(`${leftOperand} ${operator} ${rightOperand}`);
+});
+});
+
 
 function subtract(num1, num2){
     return num1 - num2;
