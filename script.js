@@ -30,7 +30,11 @@ numBtns.forEach(element => {
 });
 
 equalSign.addEventListener("click", () => {
-    display.textContent = operate(operator, leftOperand, rightOperand);
+    let result = operate(operator, leftOperand, rightOperand);
+    display.textContent = result;
+    leftOperand = result;
+    rightOperand = "";
+    isOperatorPressed = false;
 });
 
 function add(num1, num2){
