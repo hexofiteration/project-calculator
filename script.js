@@ -11,6 +11,17 @@ let isOperatorPressed = false;
 let isEqualPressed = false;
 const equalSign = document.querySelector("#equal");
 
+const clearBtn = document.querySelector("#clear");
+
+clearBtn.addEventListener("click", () => {
+  leftOperand = "";
+  rightOperand = "";
+  operator = "";
+  display.textContent = "0";
+  isOperatorPressed = false;
+  isEqualPressed = false;
+});
+
 operatorBtns.forEach((button) =>
   button.addEventListener("click", (e) => {
     if (isOperatorPressed && rightOperand !== "") {
@@ -72,7 +83,7 @@ function operate(operator, num1, num2) {
   num1 = Number(num1);
   num2 = Number(num2);
 
-  if (operator == "" || num1 == "" || num2 == "") return "";
+  if (operator == "" || num1 == "" || num2 == "") return "0";
 
   if (operator == "+") return add(num1, num2);
 
