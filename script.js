@@ -12,6 +12,7 @@ let isEqualPressed = false;
 const equalSign = document.querySelector("#equal");
 
 const clearBtn = document.querySelector("#clear");
+//const decimalBtn = document.querySelector("#decimal");
 
 clearBtn.addEventListener("click", () => {
   leftOperand = "";
@@ -26,7 +27,7 @@ operatorBtns.forEach((button) =>
   button.addEventListener("click", (e) => {
     if (isOperatorPressed && rightOperand !== "") {
       let result = operate(operator, leftOperand, rightOperand);
-      display.textContent = result;
+      display.textContent = result.toFixed(8);
       leftOperand = result;
       rightOperand = "";
       operator = e.target.textContent;
@@ -55,7 +56,7 @@ numBtns.forEach((element) => {
 
 equalSign.addEventListener("click", () => {
   let result = operate(operator, leftOperand, rightOperand);
-  display.textContent = result;
+  display.textContent = result.toFixed(8);
   leftOperand = result;
   rightOperand = "";
   operator = "";
@@ -76,7 +77,7 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
   if (num2 === 0) return "🙄 ugh! Just don't!";
-  return (num1 / num2).toFixed(8);
+  return num1 / num2;
 }
 
 function operate(operator, num1, num2) {
