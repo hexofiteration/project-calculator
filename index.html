@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -11,8 +12,8 @@
     <div class="calculator">
       <div id="display">0</div>
       <div class="buttons">
-        <button id="clear">clear</button>
-        <button id="left_arrow">&larr;</button>
+        <button class="btn-clear" id="clear">clear</button>
+        <button class="btn-backspace" id="left_arrow">&larr;</button>
         <div class="numbers">
           <button>9</button>
           <button>8</button>
@@ -23,7 +24,7 @@
           <button>3</button>
           <button>2</button>
           <button>1</button>
-          <button>0</button>
+          <button class="zero">0</button>
           <button id="comma">.</button>
         </div>
 
@@ -33,7 +34,7 @@
           <button>-</button>
           <button>+</button>
         </div>
-        <button id="equal">=</button>
+        <button class="btn-equals" id="equal">=</button>
       </div>
     </div>
   </body>
