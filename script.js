@@ -12,8 +12,21 @@ let isEqualPressed = false;
 const equalSign = document.querySelector("#equal");
 
 const clearBtn = document.querySelector("#clear");
-//const decimalBtn = document.querySelector("#decimal");
+const backspace = document.querySelector("#left_arrow");
+const decimalBtn = document.querySelector("#comma");
 
+backspace.addEventListener("click", () => {
+  let arr = display.textContent.split("");
+  arr.pop();
+  let newNum = arr.join("");
+  if (display.textContent == leftOperand) {
+    leftOperand = newNum;
+    display.textContent = leftOperand;
+  } else {
+    rightOperand = newNum;
+    display.textContent = rightOperand;
+  }
+});
 clearBtn.addEventListener("click", () => {
   leftOperand = "";
   rightOperand = "";
@@ -21,13 +34,15 @@ clearBtn.addEventListener("click", () => {
   display.textContent = "0";
   isOperatorPressed = false;
   isEqualPressed = false;
+  decimalBtn.disabled = false;
 });
 
 operatorBtns.forEach((button) =>
   button.addEventListener("click", (e) => {
+    decimalBtn.disabled = false;
     if (isOperatorPressed && rightOperand !== "") {
       let result = operate(operator, leftOperand, rightOperand);
-      display.textContent = result.toFixed(8);
+      display.textContent = result;
       leftOperand = result;
       rightOperand = "";
       operator = e.target.textContent;
@@ -47,21 +62,32 @@ numBtns.forEach((element) => {
     if (!isOperatorPressed) {
       leftOperand += e.target.textContent;
       display.textContent = leftOperand;
+      if (display.textContent.includes(".")) {
+        decimalBtn.disabled = true;
+      } else {
+        decimalBtn.disabled = false;
+      }
     } else {
       rightOperand += e.target.textContent;
       display.textContent = rightOperand;
+      if (display.textContent.includes(".")) {
+        decimalBtn.disabled = true;
+      } else {
+        decimalBtn.disabled = false;
+      }
     }
   });
 });
 
 equalSign.addEventListener("click", () => {
   let result = operate(operator, leftOperand, rightOperand);
-  display.textContent = result.toFixed(8);
+  display.textContent = result;
   leftOperand = result;
   rightOperand = "";
   operator = "";
   isOperatorPressed = false;
   isEqualPressed = true;
+  decimalBtn.disabled = false;
 });
 
 function add(num1, num2) {
