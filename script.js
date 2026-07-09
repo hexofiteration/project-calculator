@@ -15,7 +15,18 @@ const clearBtn = document.querySelector("#clear");
 const backspace = document.querySelector("#left_arrow");
 const decimalBtn = document.querySelector("#comma");
 
-backspace.addEventListener("click", () => {
+backspace.addEventListener("click", handleBackspace);
+clearBtn.addEventListener("click", clearDisplay);
+operatorBtns.forEach((button) =>
+  button.addEventListener("click", handleOperator),
+);
+
+numBtns.forEach((element) => {
+  element.addEventListener("click", inputDigit);
+});
+
+equalSign.addEventListener("click", handleEquals);
+function handleBackspace() {
   let arr = display.textContent.split("");
   arr.pop();
   let newNum = arr.join("");
@@ -26,8 +37,9 @@ backspace.addEventListener("click", () => {
     rightOperand = newNum;
     display.textContent = rightOperand;
   }
-});
-clearBtn.addEventListener("click", () => {
+}
+
+function clearDisplay() {
   leftOperand = "";
   rightOperand = "";
   operator = "";
@@ -35,51 +47,47 @@ clearBtn.addEventListener("click", () => {
   isOperatorPressed = false;
   isEqualPressed = false;
   decimalBtn.disabled = false;
-});
+}
 
-operatorBtns.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    decimalBtn.disabled = false;
-    if (isOperatorPressed && rightOperand !== "") {
-      let result = operate(operator, leftOperand, rightOperand);
-      display.textContent = result;
-      leftOperand = result;
-      rightOperand = "";
-      operator = e.target.textContent;
+function handleOperator(e) {
+  decimalBtn.disabled = false;
+  if (isOperatorPressed && rightOperand !== "") {
+    let result = operate(operator, leftOperand, rightOperand);
+    display.textContent = result;
+    leftOperand = result;
+    rightOperand = "";
+    operator = e.target.textContent;
+  } else {
+    operator = e.target.textContent;
+    isOperatorPressed = true;
+  }
+}
+
+function inputDigit(e) {
+  if (isEqualPressed && operator === "") {
+    leftOperand = "";
+    isEqualPressed = false;
+  }
+  if (!isOperatorPressed) {
+    leftOperand += e.target.textContent;
+    display.textContent = leftOperand;
+    if (display.textContent.includes(".")) {
+      decimalBtn.disabled = true;
     } else {
-      operator = e.target.textContent;
-      isOperatorPressed = true;
+      decimalBtn.disabled = false;
     }
-  }),
-);
-
-numBtns.forEach((element) => {
-  element.addEventListener("click", (e) => {
-    if (isEqualPressed && operator === "") {
-      leftOperand = "";
-      isEqualPressed = false;
-    }
-    if (!isOperatorPressed) {
-      leftOperand += e.target.textContent;
-      display.textContent = leftOperand;
-      if (display.textContent.includes(".")) {
-        decimalBtn.disabled = true;
-      } else {
-        decimalBtn.disabled = false;
-      }
+  } else {
+    rightOperand += e.target.textContent;
+    display.textContent = rightOperand;
+    if (display.textContent.includes(".")) {
+      decimalBtn.disabled = true;
     } else {
-      rightOperand += e.target.textContent;
-      display.textContent = rightOperand;
-      if (display.textContent.includes(".")) {
-        decimalBtn.disabled = true;
-      } else {
-        decimalBtn.disabled = false;
-      }
+      decimalBtn.disabled = false;
     }
-  });
-});
+  }
+}
 
-equalSign.addEventListener("click", () => {
+function handleEquals() {
   let result = operate(operator, leftOperand, rightOperand);
   display.textContent = result;
   leftOperand = result;
@@ -88,8 +96,7 @@ equalSign.addEventListener("click", () => {
   isOperatorPressed = false;
   isEqualPressed = true;
   decimalBtn.disabled = false;
-});
-
+}
 function add(num1, num2) {
   return num1 + num2;
 }
