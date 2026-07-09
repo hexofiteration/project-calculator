@@ -17,6 +17,7 @@ const decimalBtn = document.querySelector("#comma");
 
 backspace.addEventListener("click", handleBackspace);
 clearBtn.addEventListener("click", clearDisplay);
+
 operatorBtns.forEach((button) =>
   button.addEventListener("click", handleOperator),
 );
@@ -26,6 +27,19 @@ numBtns.forEach((element) => {
 });
 
 equalSign.addEventListener("click", handleEquals);
+
+//keyboard support
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Backspace") {
+    handleBackspace();
+  } else if (e.key === "c") {
+    clearDisplay();
+  } else if (e.key === "=") {
+    handleEquals();
+  }
+});
+
 function handleBackspace() {
   let arr = display.textContent.split("");
   arr.pop();
